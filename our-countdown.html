@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Forever Begins In…</title>
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Georgia", serif;
+    }
+
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+
+
+      /* 🌄 Background image */
+      background: url("background.jpg") center/cover no-repeat fixed;
+      overflow: hidden;
+    }
+
+
+    /* ✨ soft dark gradient for readability */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
+      z-index: 0;
+    }
+
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+
+    h1 {
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      text-shadow: 0 0 15px rgba(255,255,255,0.8),
+                   0 0 30px rgba(255,180,200,0.6);
+    }
+
+
+    p {
+      font-size: 18px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+
+
+    .timer {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px rgba(255,255,255,0.9),
+                   0 0 25px rgba(255,150,150,0.7);
+    }
+
+
+    .heart {
+      font-size: 26px;
+      margin-top: 18px;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 12px rgba(255,120,120,0.9);
+    }
+
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+
+    /* 🔥 Fireflies / embers */
+    .embers {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+
+    .embers span {
+      position: absolute;
+      bottom: -20px;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffd27a, #ff7a00);
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: rise linear infinite;
+      filter: blur(0.5px);
+    }
+
+
+    @keyframes rise {
+      from {
+        transform: translateY(0) scale(0.8);
+        opacity: 0.9;
+      }
+      to {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- 🔥 drifting embers -->
+  <div class="embers" id="embers"></div>
+
+
+  <div class="content">
+    <h1>Our Forever Begins In…</h1>
+
+
+    <p>
+      Every second brings me closer  
+      to the moment I get to hold your hand  
+      and never let go.
+    </p>
+
+
+    <div class="timer" id="countdown">Loading…</div>
+
+
+    <div class="heart">❤</div>
+  </div>
+
+
+  <!-- 🎵 Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <script>
+    /* 🔥 create drifting embers */
+    const embers = document.getElementById("embers");
+
+
+    for (let i = 0; i < 40; i++) {
+      const e = document.createElement("span");
+      e.style.left = Math.random() * 100 + "vw";
+      e.style.animationDuration = 6 + Math.random() * 8 + "s";
+      e.style.animationDelay = Math.random() * 10 + "s";
+      embers.appendChild(e);
+    }
+
+
+    /* ⏳ countdown to Feb 26, 10:00 AM */
+    const targetDate = new Date("Feb 26, 2026 10:00:00").getTime();
+    const el = document.getElementById("countdown");
+
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+
+      if (diff <= 0) {
+        el.innerHTML = "It's time… ❤";
+        return;
+      }
+
+
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+
+      el.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    }
+
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+
+</body>
+</html>
