@@ -13,11 +13,11 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Georgia", serif;
       scroll-behavior: smooth;
     }
 
     body {
+      font-family: Georgia, serif; /* ← moved here (not global *) */
       color: white;
       overflow-x: hidden;
     }
@@ -41,7 +41,7 @@
       z-index: -1;
     }
 
-    /* Scroll snap container */
+    /* Scroll snap */
     .slides {
       scroll-snap-type: y mandatory;
       height: 100dvh;
@@ -63,13 +63,15 @@
       animation: fadeIn 1.5s ease;
     }
 
-    /* First slide wedding names */
+    /* ===== FIRST SLIDE FONT (Griffy) ===== */
     .wedding-title {
       display: flex;
       flex-direction: column;
       gap: 14px;
       line-height: 1.2;
-      font-family: "Griffy", cursive;
+
+      font-family: "Griffy", cursive; /* ← now NOT overridden */
+
       color: #ffe4ec;
       text-shadow:
         0 0 20px rgba(255, 220, 230, 0.9),
@@ -121,7 +123,7 @@
       text-decoration: underline;
     }
 
-    /* Responsive YouTube video */
+    /* Responsive YouTube */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -141,7 +143,6 @@
       border: none;
     }
 
-    /* Fade animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -151,7 +152,6 @@
 
 <body>
 
-  <!-- Background image -->
   <img class="bg" src="pics/background.jpg" alt="Background">
   <div class="overlay"></div>
 
@@ -198,15 +198,10 @@
         <p>
           While we wish we could celebrate with you in person, your presence in our lives
           means the world to us. We’d love for you to join us virtually!
-          You can tune into our live stream here:
         </p>
 
         <div class="video-wrapper">
-          <iframe
-            src="https://www.youtube.com/embed/v40V1dPb-u0"
-            title="Wedding Livestream"
-            allowfullscreen>
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/v40V1dPb-u0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -214,23 +209,19 @@
   </div>
 
   <script>
-    /* Countdown to Feb 26, 2026 — 10:00 AM IST */
     const targetDate = new Date("2026-02-26T10:00:00+05:30").getTime();
     const el = document.getElementById("countdown");
 
     function updateCountdown() {
       const diff = targetDate - new Date().getTime();
-
       if (diff <= 0) {
         el.innerHTML = "The celebration has begun ❤";
         return;
       }
-
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff / (1000*60*60)) % 24);
       const m = Math.floor((diff / (1000*60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
-
       el.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
     }
 
