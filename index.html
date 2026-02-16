@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tejas Weds Samanvitha</title>
 
-  <style>
-    /* ===== Import custom wedding font ===== */
-    @font-face {
-      font-family: "Griffy";
-      src: url("fonts/Griffy-Regular.ttf") format("truetype");
-      font-weight: normal;
-      font-style: normal;
-    }
+  <!-- Google Font: Griffy -->
+  <link href="https://fonts.googleapis.com/css2?family=Griffy&display=swap" rel="stylesheet">
 
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -27,7 +22,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== Background ===== */
+    /* Background */
     .bg {
       position: fixed;
       inset: 0;
@@ -46,7 +41,7 @@
       z-index: -1;
     }
 
-    /* ===== Scroll snap ===== */
+    /* Scroll snap container */
     .slides {
       scroll-snap-type: y mandatory;
       height: 100dvh;
@@ -68,13 +63,13 @@
       animation: fadeIn 1.5s ease;
     }
 
-    /* ===== Wedding title (custom font) ===== */
+    /* First slide wedding names */
     .wedding-title {
       display: flex;
       flex-direction: column;
       gap: 14px;
       line-height: 1.2;
-      font-family: "Griffy", cursive;   /* ← custom font here */
+      font-family: "Griffy", cursive;
       color: #ffe4ec;
       text-shadow:
         0 0 20px rgba(255, 220, 230, 0.9),
@@ -91,7 +86,7 @@
       letter-spacing: 4px;
     }
 
-    /* ===== General text ===== */
+    /* General text */
     h1 {
       font-size: clamp(34px, 6vw, 60px);
       margin-bottom: 20px;
@@ -126,7 +121,7 @@
       text-decoration: underline;
     }
 
-    /* ===== Responsive video ===== */
+    /* Responsive YouTube video */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -146,7 +141,7 @@
       border: none;
     }
 
-    /* ===== Fade in ===== */
+    /* Fade animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -156,7 +151,7 @@
 
 <body>
 
-  <!-- Background -->
+  <!-- Background image -->
   <img class="bg" src="pics/background.jpg" alt="Background">
   <div class="overlay"></div>
 
@@ -219,7 +214,7 @@
   </div>
 
   <script>
-    /* ===== Countdown IST ===== */
+    /* Countdown to Feb 26, 2026 — 10:00 AM IST */
     const targetDate = new Date("2026-02-26T10:00:00+05:30").getTime();
     const el = document.getElementById("countdown");
 
