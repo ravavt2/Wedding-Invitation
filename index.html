@@ -33,12 +33,12 @@
       position: fixed;
       inset: 0;
       background: radial-gradient(circle at center,
-          rgba(0,0,0,0.2),
-          rgba(0,0,0,0.75));
+          rgba(0,0,0,0.25),
+          rgba(0,0,0,0.8));
       z-index: -2;
     }
 
-    /* ===== Scroll snap container ===== */
+    /* ===== Scroll snap ===== */
     .slides {
       scroll-snap-type: y mandatory;
       height: 100dvh;
@@ -57,20 +57,44 @@
     }
 
     .content {
-      max-width: 800px;
+      max-width: 850px;
       animation: fadeIn 1.5s ease;
     }
 
-    /* ===== Typography ===== */
+    /* ===== Wedding Title ===== */
+    .wedding-title {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      line-height: 1.2;
+      color: #ffe4ec;
+      text-shadow:
+        0 0 20px rgba(255, 220, 230, 0.9),
+        0 0 40px rgba(255, 170, 190, 0.6);
+    }
+
+    .name {
+      font-size: clamp(40px, 7vw, 72px);
+      letter-spacing: 1px;
+    }
+
+    .weds {
+      font-size: clamp(22px, 4vw, 36px);
+      color: #ffd6e0;
+      font-style: italic;
+      letter-spacing: 4px;
+    }
+
+    /* ===== General text ===== */
     h1 {
-      font-size: clamp(36px, 6vw, 64px);
+      font-size: clamp(34px, 6vw, 60px);
       margin-bottom: 20px;
       text-shadow: 0 0 20px rgba(255,255,255,0.9),
                    0 0 40px rgba(255,170,190,0.7);
     }
 
     p {
-      font-size: clamp(18px, 2.5vw, 24px);
+      font-size: clamp(18px, 2.4vw, 24px);
       line-height: 1.7;
       text-shadow: 0 0 14px rgba(0,0,0,0.95);
       margin-bottom: 20px;
@@ -80,8 +104,10 @@
       font-size: clamp(32px, 5vw, 52px);
       font-weight: bold;
       margin: 15px 0;
-      text-shadow: 0 0 18px rgba(255,255,255,0.95),
-                   0 0 40px rgba(255,140,160,0.85);
+      color: #ffe0ea;
+      text-shadow:
+        0 0 18px rgba(255,255,255,0.95),
+        0 0 40px rgba(255,140,160,0.85);
     }
 
     a {
@@ -114,7 +140,7 @@
       border: none;
     }
 
-    /* ===== Embers ===== */
+    /* ===== Embers (more natural motion) ===== */
     .embers {
       position: fixed;
       inset: 0;
@@ -132,12 +158,27 @@
       border-radius: 50%;
       opacity: 0.85;
       filter: blur(0.6px);
-      animation: rise linear infinite;
+      animation: rise var(--dur) linear infinite,
+                 drift var(--dur) ease-in-out infinite alternate,
+                 flicker 3s ease-in-out infinite;
     }
 
+    /* upward movement */
     @keyframes rise {
-      from { transform: translateY(0) scale(0.8); opacity: 0.9; }
-      to   { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+      from { transform: translateY(0) scale(0.7); opacity: 0.9; }
+      to   { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+    }
+
+    /* sideways drifting */
+    @keyframes drift {
+      from { transform: translateX(-20px); }
+      to   { transform: translateX(20px); }
+    }
+
+    /* glow flicker */
+    @keyframes flicker {
+      0%,100% { opacity: 0.85; }
+      50% { opacity: 0.4; }
     }
 
     /* ===== Fade in ===== */
@@ -150,7 +191,6 @@
 
 <body>
 
-  <!-- Background -->
   <img class="bg" src="pics/background.jpg" alt="Background">
   <div class="overlay"></div>
   <div class="embers" id="embers"></div>
@@ -159,8 +199,10 @@
 
     <!-- Slide 1 -->
     <section class="slide">
-      <div class="content">
-        <h1>Tejas Weds Samanvitha</h1>
+      <div class="content wedding-title">
+        <div class="name">Ravavarapu Tejas</div>
+        <div class="weds">Weds</div>
+        <div class="name">Jampala Samanvitha</div>
       </div>
     </section>
 
@@ -200,8 +242,11 @@
         </p>
 
         <div class="video-wrapper">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/v40V1dPb-u0?si=IR6S-sXpfHj9Oju2" title="YouTube video player" frameborder="0" allow="accelerometer;
-            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe
+            src="https://www.youtube.com/embed/v40V1dPb-u0"
+            title="Wedding Livestream"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </section>
@@ -209,12 +254,12 @@
   </div>
 
   <script>
-    /* ===== Embers generator ===== */
+    /* ===== Natural ember randomness ===== */
     const embers = document.getElementById("embers");
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
       const e = document.createElement("span");
       e.style.left = Math.random() * 100 + "vw";
-      e.style.animationDuration = 6 + Math.random() * 10 + "s";
+      e.style.setProperty("--dur", (6 + Math.random() * 10) + "s");
       e.style.animationDelay = Math.random() * 12 + "s";
       embers.appendChild(e);
     }
